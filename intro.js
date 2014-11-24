@@ -423,6 +423,11 @@
         tooltipLayer.style.top = '-' + (_getOffset(tooltipLayer).height + 10) + 'px';
         arrowLayer.className = 'introjs-arrow bottom';
         break;
+      case 'top-right':
+        tooltipLayer.style.right = '15px';
+        tooltipLayer.style.top = '-' + (_getOffset(tooltipLayer).height + 10) + 'px';
+        arrowLayer.className = 'introjs-arrow bottom-right';
+        break;
       case 'right':
         tooltipLayer.style.left = (_getOffset(targetElement).width + 20) + 'px';
         arrowLayer.className = 'introjs-arrow left';
