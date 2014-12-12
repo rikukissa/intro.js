@@ -255,6 +255,10 @@
     }
   }
 
+  function isPromise(obj) {
+    return typeof obj === 'object' && typeof obj.then === 'function';
+  }
+
   /**
    * Go to next step on intro
    *
@@ -281,11 +285,19 @@
     }
 
     var nextStep = this._introItems[this._currentStep];
-    if (typeof (this._introBeforeChangeCallback) !== 'undefined') {
-      this._introBeforeChangeCallback.call(this, nextStep.element);
-    }
+    var promise;
 
-    _showElement.call(this, nextStep);
+    if (typeof (this._introBeforeChangeCallback) !== 'undefined') {
+      var result = this._introBeforeChangeCallback.call(this, nextStep);
+
+      if(isPromise(result)) {
+        promise = result;
+      }
+    }
+    if(!promise) {
+      return _showElement.call(this, nextStep);
+    }
+    promise.then(_showElement.bind(this, nextStep));
   }
 
   /**
@@ -302,11 +314,18 @@
     }
 
     var nextStep = this._introItems[--this._currentStep];
-    if (typeof (this._introBeforeChangeCallback) !== 'undefined') {
-      this._introBeforeChangeCallback.call(this, nextStep.element);
-    }
+    var promise;
 
-    _showElement.call(this, nextStep);
+    if (typeof (this._introBeforeChangeCallback) !== 'undefined') {
+      var result = this._introBeforeChangeCallback.call(this, nextStep);
+      if(isPromise(result)) {
+        promise = result;
+      }
+    }
+    if(!promise) {
+      return _showElement.call(this, nextStep);
+    }
+    promise.then(_showElement.bind(this, nextStep));
   }
 
   /**
@@ -417,6 +436,7 @@
     var tooltipCssClass = this._options.tooltipClass;
 
     currentTooltipPosition = this._introItems[this._currentStep].position;
+
     switch (currentTooltipPosition) {
       case 'top':
         tooltipLayer.style.left = '15px';
@@ -516,7 +536,6 @@
    * @param {Object} targetElement
    */
   function _showElement(targetElement) {
-
     if (typeof (this._introChangeCallback) !== 'undefined') {
         this._introChangeCallback.call(this, targetElement.element);
     }
