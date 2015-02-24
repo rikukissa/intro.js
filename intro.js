@@ -441,12 +441,17 @@
       case 'top':
         tooltipLayer.style.left = '15px';
         tooltipLayer.style.top = '-' + (_getOffset(tooltipLayer).height + 10) + 'px';
-        arrowLayer.className = 'introjs-arrow bottom';
+        arrowLayer.className = 'introjs-arrow top';
         break;
       case 'top-right':
         tooltipLayer.style.right = '15px';
         tooltipLayer.style.top = '-' + (_getOffset(tooltipLayer).height + 10) + 'px';
-        arrowLayer.className = 'introjs-arrow bottom-right';
+        arrowLayer.className = 'introjs-arrow top-right';
+        break;
+      case 'top-left':
+        tooltipLayer.style.left = '15px';
+        tooltipLayer.style.top = '-' + (_getOffset(tooltipLayer).height + 10) + 'px';
+        arrowLayer.className = 'introjs-arrow top-left';
         break;
       case 'right':
         tooltipLayer.style.left = (_getOffset(targetElement).width + 20) + 'px';
