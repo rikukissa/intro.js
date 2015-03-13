@@ -813,6 +813,11 @@
     if (typeof (this._introAfterChangeCallback) !== 'undefined') {
         this._introAfterChangeCallback.call(this, targetElement.element);
     }
+
+    var overlay = document.querySelector('.introjs-overlay');
+    var hide = targetElement.overlay !== undefined && !targetElement.overlay;
+    overlay.style.display = hide ? 'none' : 'block';
+
   }
 
   /**
