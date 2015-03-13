@@ -486,7 +486,7 @@
         arrowLayer.style.display = 'none';
         tooltipLayer.style.left   = '10%';
         tooltipLayer.style.top    = '10%';
-        console.log(helperNumberLayer);
+
         if (typeof(helperNumberLayer) != 'undefined' && helperNumberLayer != null) {
           helperNumberLayer.style.left = '10px';
           helperNumberLayer.style.top  = '10px';
