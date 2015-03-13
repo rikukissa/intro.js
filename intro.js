@@ -767,7 +767,10 @@
     nextTooltipButton.focus();
 
     //add target element position style
-    targetElement.element.className += ' introjs-showElement';
+    if(targetElement.highlightTarget || targetElement.highlightTarget === undefined) {
+      targetElement.element.className += ' introjs-showElement';
+    }
+
 
     var currentElementPosition = _getPropValue(targetElement.element, 'position');
     if (currentElementPosition !== 'absolute' &&
