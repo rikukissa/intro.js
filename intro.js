@@ -291,13 +291,12 @@
       var result = this._introBeforeChangeCallback.call(this, nextStep);
 
       if(isPromise(result)) {
-        promise = result;
+        promise = result.then(_showElement.bind(this, nextStep));
       }
     }
     if(!promise) {
       return _showElement.call(this, nextStep);
     }
-    promise.then(_showElement.bind(this, nextStep));
   }
 
   /**
@@ -694,8 +693,14 @@
       //next button
       var nextTooltipButton = document.createElement('a');
 
+      function disableButtons() {
+        nextTooltipButton.classList.add('introjs-disabled');
+        prevTooltipButton.classList.add('introjs-disabled');
+      }
+
       nextTooltipButton.onclick = function() {
         if (self._introItems.length - 1 != self._currentStep) {
+          disableButtons();
           _nextStep.call(self);
         }
       };
@@ -708,6 +713,7 @@
 
       prevTooltipButton.onclick = function() {
         if (self._currentStep != 0) {
+          disableButtons();
           _previousStep.call(self);
         }
       };
